@@ -15,10 +15,15 @@ const authReducer = createSlice({
     login_success: (state: UserState, action: PayloadAction<BaseResponse>) => {
       state.isLoggedIn = true;
       state.user = action.payload.data;
+      localStorage.setItem(
+        "ACCESS_TOKEN",
+        action.payload.data.tokenInfo.accessToken
+      );
     },
     remove_userInfo: (state: UserState) => {
       state.isLoggedIn = false;
       state.user = null;
+      localStorage.removeItem("ACCESS_TOKEN");
     },
   },
 });

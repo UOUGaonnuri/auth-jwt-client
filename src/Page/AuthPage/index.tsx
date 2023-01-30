@@ -11,17 +11,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginForm } from "@/Data/Type/Auth";
 import { loginRequest } from "@/Service/Auth";
+import { useDispatch } from "react-redux";
+import { login_success } from "@/Data/Slices/AuthReducer";
 
 const AuthPage = () => {
-  const [username, setUsername] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onChangeInput = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
-    if (target.name === "username") {
-      setUsername(target.value);
+    if (target.name === "email") {
+      setUserEmail(target.value);
     } else if (target.name === "password") {
       setPassword(target.value);
     }
@@ -31,13 +34,14 @@ const AuthPage = () => {
     e.preventDefault();
 
     const loginForm: LoginForm = {
-      userName: username,
+      userEmail: userEmail,
       password: password,
     };
 
     loginRequest(loginForm)
       .then((res) => {
         alert("로그인 되었습니다.");
+        dispatch(login_success(res.data));
         window.location.reload();
       })
       .catch(() => {
@@ -50,11 +54,11 @@ const AuthPage = () => {
       <Title> Hello</Title>
       <AuthForm onSubmit={onSubmit}>
         <FormInput
-          name="username"
+          name="email"
           type="text"
-          placeholder="Username"
+          placeholder="Email"
           onChange={onChangeInput}
-          value={username}
+          value={userEmail}
           required
         />
         <FormInput

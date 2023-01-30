@@ -3,3 +3,9 @@ export interface BaseResponse<T = any> {
   data: T;
   message: string;
 }
+
+export interface FailureResponse {
+  status: string;
+  data: string;
+  message: string;
+}

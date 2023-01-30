@@ -5,6 +5,7 @@ import { RootStore } from "./Data/Store/Store";
 import { useSelector } from "react-redux";
 import MainPage from "./Page/MainPage";
 import SignupPage from "./Page/SignupPage";
+import Header from "./Component/Header";
 
 const AppRouter = () => {
   const user = useSelector((state: RootStore) => state.AuthReducer);
@@ -13,6 +14,7 @@ const AppRouter = () => {
       {user.isLoggedIn ? (
         <>
           <RootWrapper>
+            <Header />
             <Routes>
               <Route path="/" element={<MainPage />} />
             </Routes>
