@@ -7,5 +7,5 @@ export interface UserDetail {
 
 export interface UserState {
   isLoggedIn: boolean;
-  user: UserDetail | null;
+  user: UserDetail;
 }

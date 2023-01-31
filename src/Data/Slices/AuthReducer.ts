@@ -1,11 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { UserState } from "../Type/User";
+import { UserDetail, UserState } from "../Type/User";
 import { BaseResponse } from "../Type/Response";
+
+const initUser: UserDetail = {
+  userId: -1,
+  userEmail: "",
+  userName: "",
+  role: "",
+};
 
 const initialState: UserState = {
   isLoggedIn: false,
-  user: null,
+  user: initUser,
 };
 
 const authReducer = createSlice({
@@ -14,7 +21,7 @@ const authReducer = createSlice({
   reducers: {
     login_success: (state: UserState, action: PayloadAction<BaseResponse>) => {
       state.isLoggedIn = true;
-      state.user = action.payload.data;
+      state.user = action.payload.data.userInfo;
       localStorage.setItem(
         "ACCESS_TOKEN",
         action.payload.data.tokenInfo.accessToken
@@ -22,7 +29,7 @@ const authReducer = createSlice({
     },
     remove_userInfo: (state: UserState) => {
       state.isLoggedIn = false;
-      state.user = null;
+      state.user = initUser;
       localStorage.removeItem("ACCESS_TOKEN");
     },
   },
