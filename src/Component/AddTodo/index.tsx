@@ -4,7 +4,8 @@ import { useState } from "react";
 interface props {
   addTodo: (
     e: React.MouseEvent<HTMLButtonElement>,
-    todoContent: string
+    todoContent: string,
+    setTodoContent: React.Dispatch<React.SetStateAction<string>>
   ) => Promise<void>;
 }
 
@@ -33,7 +34,7 @@ const AddTodo = (addTodo: props) => {
           style={{ height: "100%" }}
           color="secondary"
           variant="outlined"
-          onClick={(e) => addTodo.addTodo(e, todoContent)}
+          onClick={(e) => addTodo.addTodo(e, todoContent, setTodoContent)}
         >
           +
         </Button>

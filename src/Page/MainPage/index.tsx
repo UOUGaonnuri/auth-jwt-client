@@ -32,7 +32,8 @@ const MainPage = () => {
 
   const handleSubmitTodo = async (
     e: React.MouseEvent<HTMLButtonElement>,
-    todoContent: string
+    todoContent: string,
+    setTodoContent: React.Dispatch<React.SetStateAction<string>>
   ) => {
     if (todoContent === "") {
       return;
@@ -45,9 +46,11 @@ const MainPage = () => {
       .then(() => {
         alert("Todo 가 등록되었습니다.");
         fetchTodo();
+        setTodoContent("");
       })
       .catch(() => {
         alert("Todo 등록에 실패하였습니다.");
+        setTodoContent("");
       });
   };
 
